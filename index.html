@@ -39,7 +39,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 
 /* ── ENVELOPE ── */
 #envelope-screen{position:fixed;inset:0;z-index:9000;background:#0B0510;overflow:hidden;cursor:pointer;opacity:1;display:flex;align-items:center;justify-content:center}
-.env-bg{position:absolute;inset:0;background:url('portada.jpg') center/cover no-repeat;opacity:.55;filter:saturate(.85)}
+.env-bg{position:absolute;inset:0;background:url('portada.jpg') center/cover no-repeat;opacity:.62;filter:saturate(.9)}
 .env-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 62% 52% at 50% 46%,rgba(59,18,82,.35) 0%,rgba(11,5,16,.82) 68%,#08040C 100%)}
 .env-stage{position:relative;z-index:5;width:min(78vw,320px);aspect-ratio:1.48/1;perspective:1100px}
 .env-card{position:absolute;inset:0;transform-style:preserve-3d}
@@ -340,7 +340,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 /* ── LOADER ── */
 #loader{display:none}
 
-.sec-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;pointer-events:none;z-index:-1;mix-blend-mode:screen}
+.sec-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;pointer-events:none;z-index:-1}
 
 /* ── INVITACIÓN VERSE ── */
 .invite-verse{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:clamp(17px,4.6vw,19px);line-height:1.85;color:var(--text);text-align:center;opacity:1;max-width:295px;margin:22px auto 0;padding:18px 6px;border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);position:relative}
@@ -515,7 +515,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 
   <!-- INVITACIÓN -->
   <section class="sec rv" style="text-align:center;overflow:hidden">
-    <div class="sec-bg" style="background-image:url('fondo-gracia.jpg');opacity:.42"></div>
+    <div class="sec-bg" style="background-image:url('fondo-gracia.jpg');opacity:.30"></div>
     <span class="eyebrow stagger-child">Con la gracia de Dios</span>
     <div class="orn stagger-child"><div class="orn-line"></div><div class="orn-diamond-sm"></div><div class="orn-diamond"></div><div class="orn-diamond-sm"></div><div class="orn-line"></div></div>
     <h1 class="heading stagger-child">Valentina Govea</h1>
@@ -530,7 +530,9 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 
   <!-- LA FESTEJADA · RETRATO -->
   <style>
-  .portrait-section{text-align:center;padding:clamp(60px,9vh,92px) 26px;position:relative;overflow:hidden;background:linear-gradient(165deg,#130A18 0%,#25102F 55%,#1C0E26 100%)}
+  .portrait-section{text-align:center;padding:clamp(60px,9vh,92px) 26px;position:relative;overflow:hidden;background:#130A18}
+  .portrait-section::after{content:'';position:absolute;inset:0;background:url('textura-4.jpg') center/cover no-repeat;opacity:.26;pointer-events:none;z-index:0}
+  .portrait-section > *{position:relative;z-index:1}
   .portrait-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 72% 52% at 50% 44%,rgba(116,167,255,.22) 0%,rgba(116,167,255,0) 70%);pointer-events:none}
   .portrait-tiara{display:block;margin:0 auto 12px;width:64px;height:auto;filter:drop-shadow(0 2px 6px rgba(217,178,76,.28))}
   .portrait-frame{position:relative;display:inline-block;margin:8px auto 30px;width:232px;height:300px}
@@ -624,7 +626,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 
   
   <section class="sec rv" style="text-align:center;overflow:hidden">
-    <div class="sec-bg" style="background-image:url('rosas-marco.jpg');opacity:.55"></div>
+    <div class="sec-bg" style="background-image:url('textura-1.jpg');opacity:.32"></div>
     <span class="eyebrow">Con la bendición de</span>
     <h2 class="heading-sm">Mis Padres</h2>
     <div class="fam-rings rv">
@@ -693,7 +695,7 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 
   
   <section class="sec rv" style="text-align:center;overflow:hidden">
-    <div class="sec-bg" style="background-image:url('rosas-marco.jpg');opacity:.55"></div>
+    <div class="sec-bg" style="background-image:url('textura-2.jpg');opacity:.30"></div>
     <span class="eyebrow stagger-child">El Programa del Día</span>
     <h2 class="heading-sm stagger-child">Itinerario</h2>
     <div class="orn stagger-child" style="margin-top:16px"><div class="orn-line"></div><div class="orn-diamond-sm"></div><div class="orn-diamond"></div><div class="orn-diamond-sm"></div><div class="orn-line"></div></div>
@@ -704,7 +706,8 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
   </section>
 
   <!-- DRESS CODE -->
-  <section class="sec rv" style="text-align:center;background:var(--surface)">
+  <section class="sec rv" style="text-align:center;background:var(--surface);overflow:hidden">
+    <div class="sec-bg" style="background-image:url('textura-3.jpg');opacity:.26"></div>
     <span class="eyebrow">Código de Vestimenta</span>
     <h2 class="heading-sm">Formal Elegante</h2>
     <div class="orn" style="margin-top:16px"><div class="orn-line"></div><div class="orn-diamond-sm"></div><div class="orn-diamond"></div><div class="orn-diamond-sm"></div><div class="orn-line"></div></div>
