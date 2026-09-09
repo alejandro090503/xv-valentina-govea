@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galería · 4 opciones · Valentina Govea</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#130A18; --surface:#1C0E26; --card:#241531; --accent:#74A7FF;
+  --wine:#791A3D; --deep:#3B1252; --dark:#F2E9F7; --text:#E6DCEE;
+  --gold:#D9B24C; --gold-light:#F0DCA0;
+  --border:rgba(217,178,76,.32);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',serif;font-size:18px;overflow-x:hidden}
+.wrap{max-width:440px;margin:0 auto}
+.opt{padding:54px 0 64px;position:relative;border-bottom:1px solid rgba(217,178,76,.16)}
+.opt:nth-child(even){background:var(--surface)}
+.tag{display:block;text-align:center;font-family:'Italiana',serif;font-size:12px;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ttl{font-family:'Great Vibes',cursive;font-size:40px;color:var(--dark);text-align:center;line-height:1.15;margin-bottom:6px}
+.desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:16px;color:var(--text);
+  opacity:.9;text-align:center;max-width:320px;margin:0 auto 6px;line-height:1.6;padding:0 24px}
+.hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:15px;letter-spacing:2px;
+  color:var(--gold-light);text-align:center;margin-top:18px;opacity:.9}
+.orn{display:flex;align-items:center;gap:12px;margin:14px auto 22px;max-width:220px}
+.orn-line{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.orn-d{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);opacity:.8}
+header{padding:46px 24px 30px;text-align:center}
+header h1{font-family:'Great Vibes',cursive;font-size:44px;color:var(--gold-light);line-height:1.2}
+header p{font-size:16px;font-weight:500;opacity:.85;margin-top:10px;line-height:1.6}
+
+/* ═════ A · PUERTAS CON CERRADURA (la que está puesta) ═════ */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;max-width:400px;margin:10px auto 0;padding:0 28px}
+.door{position:relative;aspect-ratio:3/4.5;border-radius:96px 96px 8px 8px;cursor:pointer;
+  background:linear-gradient(168deg,#4E1A6B 0%,#33124A 48%,#1B0826 100%);
+  border:2px solid rgba(217,178,76,.6);
+  box-shadow:0 14px 34px rgba(0,0,0,.6),inset 0 0 0 1px rgba(240,220,160,.14);
+  overflow:hidden;-webkit-tap-highlight-color:transparent;transition:box-shadow .4s,transform .4s}
+.door:hover{transform:translateY(-3px)}
+.door-photo{position:absolute;inset:0;overflow:hidden;border-radius:inherit;background:#130A18}
+.door-photo img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;
+  transform:scale(1.16);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.door.is-open .door-photo img{transform:scale(1)}
+.door-leaf{position:absolute;inset:0;border-radius:inherit;transform-origin:left center;
+  background:linear-gradient(168deg,#5A1F7C 0%,#3B1252 46%,#20092C 100%);
+  border-right:1px solid rgba(0,0,0,.5);
+  transition:transform .95s cubic-bezier(.35,.02,.2,1);
+  transform-style:preserve-3d;backface-visibility:hidden;
+  box-shadow:inset -14px 0 26px rgba(0,0,0,.45);z-index:2}
+.door.is-open .door-leaf{transform:perspective(760px) rotateY(-104deg)}
+.door-leaf::before{content:'';position:absolute;left:12%;right:12%;top:9%;height:34%;
+  border:1px solid rgba(217,178,76,.4);border-radius:40px 40px 4px 4px}
+.door-leaf::after{content:'';position:absolute;left:12%;right:12%;bottom:9%;height:30%;
+  border:1px solid rgba(217,178,76,.28);border-radius:4px}
+.door-lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;max-width:52px;z-index:3;pointer-events:none}
+.door-knob{position:absolute;right:11%;top:52%;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#F3E2AE,#D9B24C 55%,#8A6A28);
+  box-shadow:0 1px 3px rgba(0,0,0,.6);z-index:3}
+.door-num{position:absolute;left:50%;bottom:7px;transform:translateX(-50%);z-index:5;
+  font-family:'Italiana',serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(240,220,160,.82);text-shadow:0 1px 4px rgba(0,0,0,.9);pointer-events:none}
+
+/* ═════ B · NAIPES EN ABANICO ═════ */
+.fan-stage{position:relative;width:100%;height:400px;margin:10px auto 0;perspective:1200px}
+.fan-card{position:absolute;left:50%;bottom:22px;width:min(44vw,166px);aspect-ratio:3/4.15;
+  margin-left:calc(min(44vw,166px) / -2);
+  border-radius:12px;overflow:hidden;cursor:pointer;background:#F6EFE0;border:3px solid #F6EFE0;
+  box-shadow:0 16px 40px rgba(0,0,0,.6),0 0 0 1px rgba(217,178,76,.55);
+  transform-origin:50% 132%;
+  transition:transform .65s cubic-bezier(.2,.75,.25,1),box-shadow .45s,filter .45s}
+.fan-card img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;pointer-events:none}
+.fan-card::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:9px;
+  box-shadow:inset 0 0 0 1px rgba(217,178,76,.75);
+  background:linear-gradient(to top,rgba(11,5,16,.5) 0%,transparent 38%)}
+.fan-pip{position:absolute;top:7px;left:7px;z-index:2;font-family:Georgia,serif;font-size:13px;font-weight:700;
+  color:#791A3D;text-shadow:0 1px 0 rgba(255,255,255,.6);pointer-events:none}
+.fan-pip.br{top:auto;left:auto;bottom:7px;right:7px;transform:rotate(180deg)}
+.fan-card.is-front{box-shadow:0 26px 60px rgba(0,0,0,.72),0 0 0 1px rgba(240,220,160,.95),0 0 34px rgba(217,178,76,.3)}
+.fan-card:not(.is-front){filter:brightness(.66) saturate(.85)}
+
+/* ═════ C · ESPEJOS ═════ */
+.mirrors{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px 28px 10px;scrollbar-width:none}
+.mirrors::-webkit-scrollbar{display:none}
+.mirror{flex:0 0 auto;width:min(60vw,214px);scroll-snap-align:center;position:relative}
+.mirror-frame{position:relative;aspect-ratio:3/4.3;border-radius:50% 50% 46% 46%/40% 40% 60% 60%;overflow:hidden;
+  border:6px solid transparent;
+  background:linear-gradient(#130A18,#130A18) padding-box,
+             linear-gradient(150deg,#F3E2AE,#D9B24C 32%,#8A6A28 58%,#F0DCA0 84%,#8A6A28) border-box;
+  box-shadow:0 18px 44px rgba(0,0,0,.62),0 0 0 1px rgba(240,220,160,.2)}
+.mirror-frame img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+.mirror-frame::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.20) 46%,rgba(255,255,255,.06) 54%,transparent 70%);
+  animation:mirrorSheen 5.5s ease-in-out infinite}
+@keyframes mirrorSheen{0%,100%{transform:translateX(-18%)}50%{transform:translateX(18%)}}
+.mirror-crest{position:absolute;left:50%;top:-16px;transform:translateX(-50%);width:56px;z-index:3}
+.mirror-cap{text-align:center;font-family:'Italiana',serif;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold-light);margin-top:16px;opacity:.85}
+
+/* ═════ D · CUADROS TORCIDOS ═════ */
+.frames{display:flex;flex-direction:column;gap:26px;max-width:340px;margin:16px auto 0;padding:0 28px}
+.pframe{position:relative;padding:12px;background:linear-gradient(150deg,#F3E2AE,#D9B24C 34%,#8A6A28 62%,#F0DCA0);
+  border-radius:3px;box-shadow:0 16px 36px rgba(0,0,0,.62);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.pframe:nth-child(1){transform:rotate(-3.2deg)}
+.pframe:nth-child(2){transform:rotate(2.6deg) translateX(10px)}
+.pframe:nth-child(3){transform:rotate(-1.8deg) translateX(-8px)}
+.pframe:nth-child(4){transform:rotate(3.4deg)}
+.pframe:hover{transform:rotate(0deg) scale(1.03)}
+.pframe-in{position:relative;overflow:hidden;background:#130A18;border:1px solid rgba(27,7,34,.9)}
+.pframe-in img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;display:block;filter:saturate(.92)}
+.pframe-in::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 70% at 50% 40%,transparent 50%,rgba(11,5,16,.55) 100%)}
+.pframe-wire{position:absolute;left:50%;top:-20px;transform:translateX(-50%);width:70px;height:22px;pointer-events:none}
+.pframe-cap{position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);
+  background:#1B0826;border:1px solid rgba(217,178,76,.55);border-radius:2px;padding:3px 12px;
+  font-family:'Italiana',serif;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-light);white-space:nowrap}
+
+/* ═════ E · MADRIGUERA ═════ */
+.hole{position:relative;height:520px;overflow:hidden;margin-top:10px;
+  background:radial-gradient(ellipse 62% 46% at 50% 108%,rgba(59,18,82,.55),transparent 72%)}
+.hole::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(96deg,transparent 0 42px,rgba(217,178,76,.05) 42px 44px)}
+.hole-track{position:absolute;inset:0}
+.hole-item{position:absolute;left:50%;width:min(42vw,158px);aspect-ratio:3/4;
+  margin-left:calc(min(42vw,158px) / -2);border-radius:10px;overflow:hidden;
+  border:3px solid #F6EFE0;box-shadow:0 18px 40px rgba(0,0,0,.66);
+  animation:fall 9s linear infinite}
+.hole-item img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block}
+.hole-item:nth-child(1){animation-delay:0s;--tx:-58px;--rot:-14deg}
+.hole-item:nth-child(2){animation-delay:2.25s;--tx:52px;--rot:11deg}
+.hole-item:nth-child(3){animation-delay:4.5s;--tx:-34px;--rot:8deg}
+.hole-item:nth-child(4){animation-delay:6.75s;--tx:40px;--rot:-9deg}
+@keyframes fall{
+  0%{transform:translateY(-300px) translateX(0) rotate(0deg);opacity:0}
+  12%{opacity:1}
+  88%{opacity:1}
+  100%{transform:translateY(560px) translateX(var(--tx)) rotate(var(--rot));opacity:0}}
+.hole-deco{position:absolute;opacity:.5;animation:fall 9s linear infinite}
+.hole-deco svg{width:100%;height:100%}
+.hole-deco:nth-of-type(1){left:14%;width:26px;height:34px;animation-delay:1.1s;--tx:14px;--rot:120deg}
+.hole-deco:nth-of-type(2){left:78%;width:22px;height:30px;animation-delay:3.4s;--tx:-16px;--rot:-140deg}
+.hole-deco:nth-of-type(3){left:30%;width:30px;height:24px;animation-delay:5.9s;--tx:20px;--rot:90deg}
+
+.pick{max-width:360px;margin:0 auto;padding:34px 24px 60px;text-align:center}
+.pick p{font-size:17px;font-weight:500;line-height:1.7;opacity:.9}
+.pick b{color:var(--gold-light);font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Galería · 4 opciones</h1>
+  <p>Toca y desliza en cada una. Dime cuál quieres y la dejo puesta en la invitación.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- A -->
+  <section class="opt" id="o1">
+    <span class="tag">Opción 1 · la que está puesta ahora</span>
+    <h2 class="ttl">Puertas con cerradura</h2>
+    <div class="orn"><div class="orn-line"></div><div class="orn-d"></div><div class="orn-line"></div></div>
+    <p class="desc">Cuatro puertitas talladas con su cerradura dorada. Cada una se abre girando sobre su bisagra y descubre la foto detrás.</p>
+    <div class="doors" id="doors">
+      <div class="door" data-n="I"></div>
+      <div class="door" data-n="II"></div>
+      <div class="door" data-n="III"></div>
+      <div class="door" data-n="IV"></div>
+    </div>
+    <p class="hint">Toca cada puerta para abrirla</p>
+  </section>
+
+  <!-- B -->
+  <section class="opt" id="o2">
+    <span class="tag">Opción 2</span>
+    <h2 class="ttl">Naipes en abanico</h2>
+    <div class="orn"><div class="orn-line"></div><div class="orn-d"></div><div class="orn-line"></div></div>
+    <p class="desc">Las fotos son cartas de la baraja. Se reparten y se abren en abanico; tocas una y sale al frente.</p>
+    <div class="fan-stage" id="fanStage"></div>
+    <p class="hint">Toca una carta para verla</p>
+  </section>
+
+  <!-- C -->
+  <section class="opt" id="o3">
+    <span class="tag">Opción 3</span>
+    <h2 class="ttl">Espejos</h2>
+    <div class="orn"><div class="orn-line"></div><div class="orn-d"></div><div class="orn-line"></div></div>
+    <p class="desc">«A través del espejo»: cada foto dentro de un espejo ovalado de marco dorado, con un destello que lo recorre.</p>
+    <div class="mirrors" id="mirrors"></div>
+    <p class="hint">Desliza de lado</p>
+  </section>
+
+  <!-- D -->
+  <section class="opt" id="o4">
+    <span class="tag">Opción 4</span>
+    <h2 class="ttl">Cuadros torcidos</h2>
+    <div class="orn"><div class="orn-line"></div><div class="orn-d"></div><div class="orn-line"></div></div>
+    <p class="desc">Retratos colgados chuecos en la pared de la mansión, cada uno con su placa. Al tocarlos se enderezan.</p>
+    <div class="frames" id="frames"></div>
+    <p class="hint">Toca un cuadro para enderezarlo</p>
+  </section>
+
+  <!-- E -->
+  <section class="opt" id="o5">
+    <span class="tag">Opción 5 · extra</span>
+    <h2 class="ttl">Caída por la madriguera</h2>
+    <div class="orn"><div class="orn-line"></div><div class="orn-d"></div><div class="orn-line"></div></div>
+    <p class="desc">Las fotos caen sin parar por el túnel, girando entre llaves y relojes. Sin tocar nada: se mira.</p>
+    <div class="hole" id="hole"></div>
+  </section>
+
+  <div class="pick">
+    <p>Dime el número de la que te guste — <b>1 puertas</b>, <b>2 naipes</b>, <b>3 espejos</b>, <b>4 cuadros</b> o <b>5 madriguera</b> — y la dejo en la invitación.</p>
+  </div>
+
+</div>
+
+<script>
+if(location.hash){addEventListener("load",function(){var t=document.querySelector(location.hash);if(t)t.scrollIntoView();});}
+var FOTOS = ['foto1.jpg','foto2.jpg','foto3.jpg','foto4.jpg'];
+var ROMANOS = ['I','II','III','IV'];
+var PIPS = ['A','Q','K','J'];
+var CAPS = ['Valentina','Los primeros años','La niña','Creciendo'];
+
+var LOCK = '<svg class="door-lock" viewBox="0 0 40 56" fill="none" aria-hidden="true">'+
+  '<rect x="1.5" y="1.5" width="37" height="53" rx="7" fill="rgba(217,178,76,.12)" stroke="#D9B24C" stroke-width="1.6"/>'+
+  '<rect x="5" y="5" width="30" height="46" rx="5" fill="none" stroke="rgba(240,220,160,.4)" stroke-width=".8"/>'+
+  '<circle cx="20" cy="22" r="7" fill="#130A18" stroke="#D9B24C" stroke-width="1.4"/>'+
+  '<path d="M17 27 L23 27 L25 42 L15 42 Z" fill="#130A18" stroke="#D9B24C" stroke-width="1.4" stroke-linejoin="round"/></svg>';
+
+/* A · puertas */
+document.querySelectorAll('#doors .door').forEach(function(d,i){
+  d.innerHTML = '<div class="door-photo"><img src="'+FOTOS[i]+'" alt=""></div>'+
+    '<div class="door-leaf"><span class="door-knob"></span>'+LOCK+'</div>'+
+    '<span class="door-num">'+ROMANOS[i]+'</span>';
+  d.addEventListener('click', function(){ d.classList.toggle('is-open'); });
+});
+setTimeout(function(){
+  var d0=document.querySelector('#doors .door');
+  d0.classList.add('is-open');
+  setTimeout(function(){ d0.classList.remove('is-open'); },1600);
+},900);
+
+/* B · naipes */
+(function(){
+  var stage=document.getElementById('fanStage');
+  FOTOS.forEach(function(f,i){
+    var c=document.createElement('div');
+    c.className='fan-card';
+    c.innerHTML='<span class="fan-pip">'+PIPS[i]+'</span><img src="'+f+'" alt=""><span class="fan-pip br">'+PIPS[i]+'</span>';
+    stage.appendChild(c);
+  });
+  var cards=[].slice.call(stage.querySelectorAll('.fan-card')), n=cards.length, front=0;
+  function layout(){
+    var narrow=innerWidth<400, spread=narrow?13:15, lift=narrow?24:30, mid=(n-1)/2;
+    cards.forEach(function(card,i){
+      var ang=(i-mid)*spread, isF=(i===front);
+      card.style.zIndex=String(isF?120:100-Math.abs(i-front));
+      card.style.transform='translateY('+(isF?-lift:Math.abs(i-mid)*5)+'px) rotate('+ang+'deg) scale('+(isF?1:.93)+')';
+      card.classList.toggle('is-front',isF);
+    });
+  }
+  cards.forEach(function(c,i){ c.addEventListener('click',function(){ front=i; layout(); }); });
+  addEventListener('resize',layout); layout();
+})();
+
+/* C · espejos */
+(function(){
+  var m=document.getElementById('mirrors');
+  var CREST='<svg class="mirror-crest" viewBox="0 0 60 26" fill="none">'+
+    '<path d="M30 2 C24 2 20 8 14 8 C8 8 4 14 4 20" stroke="#D9B24C" stroke-width="1.6" fill="none"/>'+
+    '<path d="M30 2 C36 2 40 8 46 8 C52 8 56 14 56 20" stroke="#D9B24C" stroke-width="1.6" fill="none"/>'+
+    '<circle cx="30" cy="4.5" r="3.4" fill="#D9B24C"/></svg>';
+  FOTOS.forEach(function(f,i){
+    var d=document.createElement('div');
+    d.className='mirror';
+    d.innerHTML=CREST+'<div class="mirror-frame"><img src="'+f+'" alt=""></div><div class="mirror-cap">'+CAPS[i]+'</div>';
+    m.appendChild(d);
+  });
+})();
+
+/* D · cuadros */
+(function(){
+  var f=document.getElementById('frames');
+  var WIRE='<svg class="pframe-wire" viewBox="0 0 70 22" fill="none">'+
+    '<path d="M6 20 L35 4 L64 20" stroke="rgba(217,178,76,.75)" stroke-width="1.2"/>'+
+    '<circle cx="35" cy="3" r="2.6" fill="#D9B24C"/></svg>';
+  FOTOS.forEach(function(src,i){
+    var d=document.createElement('div');
+    d.className='pframe';
+    d.innerHTML=WIRE+'<div class="pframe-in"><img src="'+src+'" alt=""></div><span class="pframe-cap">'+CAPS[i]+'</span>';
+    f.appendChild(d);
+  });
+})();
+
+/* E · madriguera */
+(function(){
+  var h=document.getElementById('hole');
+  var t=document.createElement('div'); t.className='hole-track';
+  FOTOS.forEach(function(src){
+    var d=document.createElement('div'); d.className='hole-item';
+    d.innerHTML='<img src="'+src+'" alt="">';
+    t.appendChild(d);
+  });
+  h.appendChild(t);
+  var DECOS=[
+    '<svg viewBox="0 0 26 34" fill="none"><circle cx="13" cy="20" r="11" stroke="#D9B24C" stroke-width="1.6"/><path d="M13 12v8l5 3" stroke="#D9B24C" stroke-width="1.4" stroke-linecap="round"/><path d="M13 9V4M10 4h6" stroke="#D9B24C" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 22 30" fill="none"><circle cx="11" cy="8" r="6" stroke="#D9B24C" stroke-width="1.6"/><path d="M11 14v14M11 22h5M11 26h4" stroke="#D9B24C" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 30 24" fill="none"><rect x="1" y="1" width="20" height="22" rx="2" fill="#F6EFE0" stroke="#791A3D" stroke-width="1.2"/><path d="M11 8c0-2 3-2 3 1s-3 5-3 5-3-2-3-5 3-3 3-1z" fill="#791A3D"/></svg>'
+  ];
+  DECOS.forEach(function(svg){
+    var d=document.createElement('div'); d.className='hole-deco'; d.innerHTML=svg; h.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
