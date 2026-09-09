@@ -255,14 +255,14 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
 /* ── GALERÍA · NAIPES EN ABANICO (Alicia) ── */
 #galeria{padding:72px 0 84px;text-align:center;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%)}
 #galeria > .eyebrow,#galeria > .heading-sm,#galeria > .orn,#galeria > .gal-quote,#galeria > .gal-hint{padding-left:28px;padding-right:28px}
-.fan-stage{position:relative;width:100%;height:430px;margin:34px auto 0;perspective:1200px;touch-action:manipulation}
+.fan-stage{position:relative;width:100%;height:400px;margin:34px auto 0;perspective:1200px;touch-action:manipulation}
 .fan-card{
-  position:absolute;left:50%;bottom:26px;width:min(52vw,196px);aspect-ratio:3/4.1;
-  margin-left:calc(min(52vw,196px) / -2);
+  position:absolute;left:50%;bottom:22px;width:min(44vw,166px);aspect-ratio:3/4.15;
+  margin-left:calc(min(44vw,166px) / -2);
   border-radius:12px;overflow:hidden;cursor:pointer;
   background:#F6EFE0;border:3px solid #F6EFE0;
   box-shadow:0 16px 40px rgba(0,0,0,.6),0 0 0 1px rgba(217,178,76,.55);
-  transform-origin:50% 118%;
+  transform-origin:50% 132%;
   transition:transform .65s cubic-bezier(.2,.75,.25,1),box-shadow .45s,filter .45s;
   will-change:transform;-webkit-tap-highlight-color:transparent;
 }
@@ -1525,15 +1525,17 @@ function initMain(){
 
     function layout(){
       var narrow = window.innerWidth < 400;
-      var spread = narrow ? 17 : 21;      /* grados entre cartas */
-      var lift   = narrow ? 26 : 32;      /* cuánto sube la carta del frente */
+      var spread = narrow ? 13 : 15;      /* grados entre cartas */
+      var lift   = narrow ? 24 : 30;      /* cuánto sube la carta elegida */
+      var mid    = (n - 1) / 2;
       cards.forEach(function(card, i){
-        var rel = i - front;
-        var ang = rel * spread;
-        var isFront = (rel === 0);
-        var y  = isFront ? -lift : Math.abs(rel) * 8;
-        var sc = isFront ? 1 : 0.9 - Math.min(Math.abs(rel),3) * 0.03;
-        card.style.zIndex  = String(100 - Math.abs(rel));
+        /* el abanico es SIMÉTRICO: el ángulo depende del lugar en la mano,
+           no de cuál está al frente (si no, se abre de lado y se sale de pantalla) */
+        var ang = (i - mid) * spread;
+        var isFront = (i === front);
+        var y  = isFront ? -lift : Math.abs(i - mid) * 5;
+        var sc = isFront ? 1 : 0.93;
+        card.style.zIndex  = String(isFront ? 120 : 100 - Math.abs(i - front));
         card.style.transform = 'translateY(' + y + 'px) rotate(' + ang + 'deg) scale(' + sc + ')';
         card.classList.toggle('is-front', isFront);
       });
@@ -1565,7 +1567,7 @@ function initMain(){
     /* apiladas al inicio */
     cards.forEach(function(card,i){
       card.style.zIndex=String(100-i);
-      card.style.transform='translateY('+(i*3)+'px) rotate(0deg) scale(.94)';
+      card.style.transform='translateY('+(i*3)+'px) rotate(0deg) scale(.9)';
     });
     ScrollTrigger.create({trigger:stage,start:'top 85%',once:true,onEnter:deal,onEnterBack:deal});
     /* red de seguridad: si el trigger no dispara, se reparten igual */
