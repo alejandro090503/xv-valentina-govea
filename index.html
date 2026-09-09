@@ -252,55 +252,67 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
   .clock-swing,.clock-hand-h,.clock-hand-m,.clock-hand-s,.clock-halo{animation:none!important}
 }
 
-/* ── GALERÍA · PUERTAS CON CERRADURA (Alicia) ── */
+/* ── GALERÍA · NAIPES EN ABANICO (Alicia) ── */
 #galeria{padding:72px 0 84px;text-align:center;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%)}
 #galeria > .eyebrow,#galeria > .heading-sm,#galeria > .orn,#galeria > .gal-quote,#galeria > .gal-hint{padding-left:28px;padding-right:28px}
-.doors{display:grid;grid-template-columns:1fr 1fr;gap:18px 16px;max-width:400px;margin:34px auto 0;padding:0 28px}
-.door{
-  position:relative;aspect-ratio:3/4.5;border-radius:96px 96px 8px 8px;cursor:pointer;
-  background:linear-gradient(168deg,#4E1A6B 0%,#33124A 48%,#1B0826 100%);
-  border:2px solid rgba(217,178,76,.6);
-  box-shadow:0 14px 34px rgba(0,0,0,.6),inset 0 0 0 1px rgba(240,220,160,.14);
-  overflow:hidden;-webkit-tap-highlight-color:transparent;
-  transition:box-shadow .4s,transform .4s;
+.fan-stage{position:relative;width:100%;height:440px;margin:30px auto 0;touch-action:manipulation}
+
+.fan-card{
+  position:absolute;left:50%;bottom:20px;width:min(46vw,172px);aspect-ratio:5/7.2;
+  margin-left:calc(min(46vw,172px) / -2);
+  cursor:pointer;perspective:900px;
+  transform-origin:50% 132%;
+  transition:transform .65s cubic-bezier(.2,.75,.25,1),filter .45s;
+  will-change:transform;-webkit-tap-highlight-color:transparent;
 }
-.door:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(0,0,0,.7),0 0 26px rgba(217,178,76,.22)}
-.door.is-open{box-shadow:0 22px 50px rgba(0,0,0,.72),0 0 30px rgba(217,178,76,.34)}
-/* la foto vive detrás de la hoja */
-.door-photo{position:absolute;inset:0;overflow:hidden;border-radius:inherit;background:#130A18}
-.door-photo img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block;
-  transform:scale(1.16);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
-.door.is-open .door-photo img{transform:scale(1)}
-/* hoja de la puerta: se abre girando sobre su bisagra */
-.door-leaf{
-  position:absolute;inset:0;border-radius:inherit;transform-origin:left center;
-  background:linear-gradient(168deg,#5A1F7C 0%,#3B1252 46%,#20092C 100%);
-  border-right:1px solid rgba(0,0,0,.5);
-  transition:transform .95s cubic-bezier(.35,.02,.2,1),box-shadow .8s;
-  transform-style:preserve-3d;backface-visibility:hidden;
-  box-shadow:inset -14px 0 26px rgba(0,0,0,.45);
-  z-index:2;
+.fan-inner{position:absolute;inset:0;transform-style:preserve-3d;
+  transition:transform .78s cubic-bezier(.3,.02,.2,1)}
+.fan-card.is-front .fan-inner{transform:rotateY(180deg)}
+.fan-side{position:absolute;inset:0;border-radius:11px;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:0 16px 40px rgba(0,0,0,.62),0 0 0 1px rgba(217,178,76,.55)}
+.fan-card.is-front .fan-side{box-shadow:0 26px 60px rgba(0,0,0,.72),0 0 0 1px rgba(240,220,160,.95),0 0 34px rgba(217,178,76,.32)}
+.fan-card:not(.is-front){filter:brightness(.86)}
+
+/* ── DORSO: rejilla de rombos, como una baraja ── */
+.fan-back{
+  background:
+    repeating-linear-gradient(45deg,rgba(240,220,160,.16) 0 2px,transparent 2px 11px),
+    repeating-linear-gradient(-45deg,rgba(240,220,160,.16) 0 2px,transparent 2px 11px),
+    linear-gradient(158deg,#8E2148 0%,#791A3D 44%,#4A0F26 100%);
+  border:7px solid #FDF8EC;
 }
-.door.is-open .door-leaf{transform:perspective(760px) rotateY(-104deg)}
-/* entrepaños tallados */
-.door-leaf::before{content:'';position:absolute;left:12%;right:12%;top:9%;height:34%;
-  border:1px solid rgba(217,178,76,.4);border-radius:40px 40px 4px 4px}
-.door-leaf::after{content:'';position:absolute;left:12%;right:12%;bottom:9%;height:30%;
-  border:1px solid rgba(217,178,76,.28);border-radius:4px}
-.door-lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;max-width:52px;z-index:3;pointer-events:none}
-.door-knob{position:absolute;right:11%;top:52%;width:9px;height:9px;border-radius:50%;
-  background:radial-gradient(circle at 34% 30%,#F3E2AE,#D9B24C 55%,#8A6A28);
-  box-shadow:0 1px 3px rgba(0,0,0,.6);z-index:3}
-.door-glow{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:4;
-  background:radial-gradient(ellipse 50% 30% at 50% 50%,rgba(240,220,160,.3),transparent 68%);
-  opacity:0;transition:opacity .5s}
-.door.is-open .door-glow{opacity:0;animation:doorFlash 1.1s ease-out}
-@keyframes doorFlash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}
-.door-num{position:absolute;left:50%;bottom:7px;transform:translateX(-50%);z-index:5;
-  font-family:'Italiana',serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;
-  color:rgba(240,220,160,.82);text-shadow:0 1px 4px rgba(0,0,0,.9);pointer-events:none}
-@media(max-width:340px){.doors{gap:14px 12px}}
-@media(prefers-reduced-motion:reduce){.door-leaf,.door-photo img{transition:none}}
+.fan-back::before{content:'';position:absolute;inset:3px;border:1px solid rgba(240,220,160,.55);border-radius:3px}
+.fan-back-mono{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:52%;max-width:74px;opacity:.95;pointer-events:none}
+
+/* ── CARA: papel de naipe con la foto ── */
+.fan-face{
+  transform:rotateY(180deg);
+  background:linear-gradient(158deg,#FDF8EC 0%,#F6EFE0 42%,#EADFC6 100%);
+  padding:9px 7px;color:#791A3D;
+}
+.fan-card.is-negra .fan-face{color:#1B0722}
+.fan-face::before{content:'';position:absolute;inset:4px;border-radius:8px;pointer-events:none;z-index:3;
+  border:1px solid currentColor;opacity:.42}
+.fan-photo{position:relative;width:100%;height:100%;border-radius:5px;overflow:hidden;
+  border:1px solid rgba(27,7,34,.28);background:#130A18}
+.fan-photo img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;pointer-events:none;-webkit-user-drag:none}
+.fan-photo::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(11,5,16,.42) 0%,transparent 34%)}
+.fan-corner{position:absolute;top:6px;left:6px;z-index:4;display:flex;flex-direction:column;
+  align-items:center;line-height:1;pointer-events:none;color:inherit}
+.fan-corner.br{top:auto;left:auto;bottom:6px;right:6px;transform:rotate(180deg)}
+.fan-corner::before{content:'';position:absolute;left:-5px;right:-5px;top:-5px;bottom:-4px;z-index:-1;
+  background:radial-gradient(ellipse at center,rgba(253,248,236,.97) 42%,rgba(253,248,236,0) 78%)}
+.fan-rank{font-family:Georgia,'Times New Roman',serif;font-size:17px;font-weight:700;letter-spacing:-.5px;
+  text-shadow:0 1px 0 rgba(255,255,255,.85)}
+.fan-suit{width:12px;height:12px;margin-top:1px;display:block;fill:currentColor}
+
+.fan-hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:15px;letter-spacing:2px;color:var(--gold-light);margin-top:6px;opacity:.9}
+@media(max-width:360px){.fan-rank{font-size:15px}.fan-suit{width:10px;height:10px}}
+@media(prefers-reduced-motion:reduce){.fan-card,.fan-inner{transition:none}}
+.gal-hint{padding-left:28px;padding-right:28px}
 .gal-hint{padding-left:28px;padding-right:28px}
 .gal-hint{padding-left:28px;padding-right:28px}
 .gal-scroll{display:flex;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:36px 28px 14px;margin-top:2px;scrollbar-width:none}
@@ -949,65 +961,49 @@ body.gift-locked{overflow:hidden;overscroll-behavior:none}
     <h2 class="heading-sm">Galería</h2>
     <div class="orn" style="margin-top:16px"><div class="orn-line"></div><div class="orn-diamond-sm"></div><div class="orn-diamond"></div><div class="orn-diamond-sm"></div><div class="orn-line"></div></div>
     <p class="gal-quote rv">Cada foto, un instante de este sueño hecho realidad.</p>
-    <div class="doors rv" id="doors">
-      <div class="door" data-num="I">
-        <div class="door-photo"><img src="foto1.jpg" alt="Valentina Govea" loading="lazy"></div>
-        <div class="door-leaf">
-          <span class="door-knob"></span>
-          <svg class="door-lock" viewBox="0 0 40 56" fill="none" aria-hidden="true">
-            <rect x="1.5" y="1.5" width="37" height="53" rx="7" fill="rgba(217,178,76,.12)" stroke="#D9B24C" stroke-width="1.6"/>
-            <rect x="5" y="5" width="30" height="46" rx="5" fill="none" stroke="rgba(240,220,160,.4)" stroke-width=".8"/>
-            <circle cx="20" cy="22" r="7" fill="#130A18" stroke="#D9B24C" stroke-width="1.4"/>
-            <path d="M17 27 L23 27 L25 42 L15 42 Z" fill="#130A18" stroke="#D9B24C" stroke-width="1.4" stroke-linejoin="round"/>
-          </svg>
+    <div class="fan-stage rv" id="fanStage">
+      <div class="fan-card">
+        <div class="fan-inner">
+          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+          <div class="fan-side fan-face">
+            <span class="fan-corner"><span class="fan-rank">A</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            <div class="fan-photo"><img src="foto1.jpg" alt="Valentina Govea" loading="lazy"></div>
+            <span class="fan-corner br"><span class="fan-rank">A</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+          </div>
         </div>
-        <div class="door-glow"></div>
-        <span class="door-num">I</span>
       </div>
-      <div class="door" data-num="II">
-        <div class="door-photo"><img src="foto2.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
-        <div class="door-leaf">
-          <span class="door-knob"></span>
-          <svg class="door-lock" viewBox="0 0 40 56" fill="none" aria-hidden="true">
-            <rect x="1.5" y="1.5" width="37" height="53" rx="7" fill="rgba(217,178,76,.12)" stroke="#D9B24C" stroke-width="1.6"/>
-            <rect x="5" y="5" width="30" height="46" rx="5" fill="none" stroke="rgba(240,220,160,.4)" stroke-width=".8"/>
-            <circle cx="20" cy="22" r="7" fill="#130A18" stroke="#D9B24C" stroke-width="1.4"/>
-            <path d="M17 27 L23 27 L25 42 L15 42 Z" fill="#130A18" stroke="#D9B24C" stroke-width="1.4" stroke-linejoin="round"/>
-          </svg>
+      <div class="fan-card is-negra">
+        <div class="fan-inner">
+          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+          <div class="fan-side fan-face">
+            <span class="fan-corner"><span class="fan-rank">Q</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            <div class="fan-photo"><img src="foto2.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
+            <span class="fan-corner br"><span class="fan-rank">Q</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+          </div>
         </div>
-        <div class="door-glow"></div>
-        <span class="door-num">II</span>
       </div>
-      <div class="door" data-num="III">
-        <div class="door-photo"><img src="foto3.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
-        <div class="door-leaf">
-          <span class="door-knob"></span>
-          <svg class="door-lock" viewBox="0 0 40 56" fill="none" aria-hidden="true">
-            <rect x="1.5" y="1.5" width="37" height="53" rx="7" fill="rgba(217,178,76,.12)" stroke="#D9B24C" stroke-width="1.6"/>
-            <rect x="5" y="5" width="30" height="46" rx="5" fill="none" stroke="rgba(240,220,160,.4)" stroke-width=".8"/>
-            <circle cx="20" cy="22" r="7" fill="#130A18" stroke="#D9B24C" stroke-width="1.4"/>
-            <path d="M17 27 L23 27 L25 42 L15 42 Z" fill="#130A18" stroke="#D9B24C" stroke-width="1.4" stroke-linejoin="round"/>
-          </svg>
+      <div class="fan-card">
+        <div class="fan-inner">
+          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+          <div class="fan-side fan-face">
+            <span class="fan-corner"><span class="fan-rank">K</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            <div class="fan-photo"><img src="foto3.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
+            <span class="fan-corner br"><span class="fan-rank">K</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+          </div>
         </div>
-        <div class="door-glow"></div>
-        <span class="door-num">III</span>
       </div>
-      <div class="door" data-num="IV">
-        <div class="door-photo"><img src="foto4.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
-        <div class="door-leaf">
-          <span class="door-knob"></span>
-          <svg class="door-lock" viewBox="0 0 40 56" fill="none" aria-hidden="true">
-            <rect x="1.5" y="1.5" width="37" height="53" rx="7" fill="rgba(217,178,76,.12)" stroke="#D9B24C" stroke-width="1.6"/>
-            <rect x="5" y="5" width="30" height="46" rx="5" fill="none" stroke="rgba(240,220,160,.4)" stroke-width=".8"/>
-            <circle cx="20" cy="22" r="7" fill="#130A18" stroke="#D9B24C" stroke-width="1.4"/>
-            <path d="M17 27 L23 27 L25 42 L15 42 Z" fill="#130A18" stroke="#D9B24C" stroke-width="1.4" stroke-linejoin="round"/>
-          </svg>
+      <div class="fan-card is-negra">
+        <div class="fan-inner">
+          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+          <div class="fan-side fan-face">
+            <span class="fan-corner"><span class="fan-rank">J</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            <div class="fan-photo"><img src="foto4.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
+            <span class="fan-corner br"><span class="fan-rank">J</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+          </div>
         </div>
-        <div class="door-glow"></div>
-        <span class="door-num">IV</span>
       </div>
     </div>
-    <p class="gal-hint rv">Toca cada puerta para abrirla</p>
+    <p class="gal-hint rv">Toca una carta para voltearla</p>
   </section>
 
   <!-- MESA DE REGALOS -->
@@ -1630,38 +1626,61 @@ function initMain(){
     setTimeout(()=>t.classList.remove('show'),2400);
   };
 
-  /* ── GALERÍA · PUERTAS CON CERRADURA ── */
-  (function initDoors(){
-    var wrap = document.getElementById('doors');
-    if(!wrap) return;
-    var doors = Array.prototype.slice.call(wrap.querySelectorAll('.door'));
-    if(!doors.length) return;
+  /* ── GALERÍA · NAIPES EN ABANICO ── */
+  (function initFan(){
+    var stage = document.getElementById('fanStage');
+    if(!stage) return;
+    var cards = Array.prototype.slice.call(stage.querySelectorAll('.fan-card'));
+    var n = cards.length;
+    if(!n) return;
+    var front = 0;
 
-    doors.forEach(function(d){
-      d.setAttribute('role','button');
-      d.setAttribute('tabindex','0');
-      d.setAttribute('aria-label','Abrir la puerta ' + (d.getAttribute('data-num')||''));
-      function toggle(){
-        var open = d.classList.toggle('is-open');
-        d.setAttribute('aria-expanded', open ? 'true' : 'false');
-      }
-      d.addEventListener('click', toggle);
-      d.addEventListener('keydown', function(e){
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    function layout(){
+      var narrow = window.innerWidth < 400;
+      var spread = narrow ? 13 : 15;
+      var lift   = narrow ? 24 : 30;
+      var mid    = (n - 1) / 2;
+      cards.forEach(function(card, i){
+        var ang = (i - mid) * spread;
+        var isFront = (i === front);
+        var y  = isFront ? -lift : Math.abs(i - mid) * 5;
+        var sc = isFront ? 1 : 0.93;
+        card.style.zIndex = String(isFront ? 120 : 100 - Math.abs(i - front));
+        card.style.transform = 'translateY(' + y + 'px) rotate(' + ang + 'deg) scale(' + sc + ')';
+        card.classList.toggle('is-front', isFront);
+      });
+    }
+    cards.forEach(function(card, i){
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-label','Ver la foto ' + (i+1) + ' de ' + n);
+      function pick(){ front = i; layout(); }
+      card.addEventListener('click', pick);
+      card.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); }
       });
     });
+    window.addEventListener('resize', layout);
+    layout();
 
-    /* La primera se entreabre sola para que se entienda el gesto */
-    var teased = false;
-    function tease(){
-      if(teased) return; teased = true;
-      setTimeout(function(){
-        doors[0].classList.add('is-open');
-        setTimeout(function(){ doors[0].classList.remove('is-open'); }, 1500);
-      }, 550);
+    /* Reparto: nacen apiladas e invisibles y se abren en abanico. El transform
+       lo maneja SOLO layout() (con la transición CSS), así GSAP nunca lo pisa. */
+    var dealt = false;
+    function deal(){
+      if(dealt) return; dealt = true;
+      cards.forEach(function(card, i){
+        setTimeout(function(){ card.style.opacity = '1'; }, i * 130);
+      });
+      setTimeout(layout, 90);
     }
-    ScrollTrigger.create({trigger:wrap,start:'top 82%',once:true,onEnter:tease});
-    setTimeout(tease, 4000);
+    cards.forEach(function(card, i){
+      card.style.opacity = '0';
+      card.style.transition = 'transform .65s cubic-bezier(.2,.75,.25,1),opacity .5s ease,box-shadow .45s,filter .45s';
+      card.style.zIndex = String(100 - i);
+      card.style.transform = 'translateY(' + (i*3) + 'px) rotate(0deg) scale(.9)';
+    });
+    ScrollTrigger.create({trigger:stage,start:'top 85%',once:true,onEnter:deal,onEnterBack:deal});
+    setTimeout(deal, 3500);
   })();
 
 /* ── MESA DE REGALOS · caja + confetti + carrusel (boda-paola-e-ivan) ── */
