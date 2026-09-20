@@ -1268,6 +1268,20 @@ body.gift-locked{overflow:hidden;overscroll-behavior:none}
   .rsvp-editar-btn:disabled{opacity:.45;cursor:default}
   .rsvp-input{min-height:52px}
   .rsvp-feedback{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:16px;line-height:1.5;color:var(--gold);margin-top:16px;min-height:20px}
+  /* Campos claros: sobre el fondo oscuro los campos no se distinguían */
+  .rsvp-input{background:#F4EEF8;color:#1B0F22;border:1.5px solid rgba(217,178,76,.7);font-weight:600}
+  .rsvp-input::placeholder{color:#6A5A74;opacity:1;font-style:italic;font-weight:500}
+  .rsvp-input:focus{border-color:var(--gold-light);box-shadow:0 0 0 3px rgba(217,178,76,.25);background:#FFFDFF}
+  .rsvp-input.rsvp-input-falta{border-color:#FF9B9B;box-shadow:0 0 0 3px rgba(255,155,155,.28)}
+  /* Contador de pases a ocupar */
+  .rsvp-contador-wrap{display:none;margin-top:18px}
+  .rsvp-contador-nota{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:17px;line-height:1.55;color:var(--text);margin:0 auto 12px}
+  .rsvp-contador{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 auto 8px;padding:12px 16px;background:rgba(217,178,76,.08);border:1px solid var(--border);border-radius:14px}
+  .rsvp-contador-btn{width:46px;height:46px;flex-shrink:0;border-radius:50%;border:1.5px solid rgba(217,178,76,.6);background:rgba(19,10,24,.6);color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s,color .25s}
+  .rsvp-contador-btn:hover:not(:disabled){background:var(--gold);color:#130A18}
+  .rsvp-contador-btn:disabled{opacity:.35;cursor:default}
+  .rsvp-contador-valor{font-family:'Great Vibes',cursive;font-size:44px;color:var(--gold-light);line-height:1;min-width:60px;text-align:center}
+  .rsvp-contador-pie{font-family:'Italiana',serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-light);margin:0 auto 4px}
   </style>
   <!-- FRASE -->
   <section class="sec-sm rv" style="text-align:center;overflow:hidden">
@@ -1322,6 +1336,16 @@ body.gift-locked{overflow:hidden;overscroll-behavior:none}
           <div class="rsvp-toggle">
             <button class="rsvp-toggle-btn" id="btnYes" type="button">S&iacute;, asistir&eacute;</button>
             <button class="rsvp-toggle-btn" id="btnNo" type="button">No podr&eacute;</button>
+          </div>
+          <!-- Contador: cuántos de sus pases va a ocupar realmente -->
+          <div class="rsvp-contador-wrap" id="rsvp-contador-wrap">
+            <p class="rsvp-contador-nota" id="rsvp-contador-nota"></p>
+            <div class="rsvp-contador" id="rsvp-contador">
+              <button class="rsvp-contador-btn" id="rsvp-menos" type="button" aria-label="Quitar un pase">−</button>
+              <span class="rsvp-contador-valor" id="rsvp-contador-valor" aria-live="polite">1</span>
+              <button class="rsvp-contador-btn" id="rsvp-mas" type="button" aria-label="Agregar un pase">+</button>
+            </div>
+            <p class="rsvp-contador-pie" id="rsvp-contador-pie"></p>
           </div>
           <div class="rsvp-fields" id="rsvp-fields"></div>
           <button class="rsvp-btn" id="btnConfirmar" type="button" style="margin-top:18px"><span id="rsvp-btn-text">Confirmar asistencia</span></button>
@@ -2014,9 +2038,19 @@ function initMain(){
     urlPara = (qp.get('para') || hp.get('para') || '').trim();
     rawP    = parseInt(qp.get('pases') || hp.get('pases'), 10);
   }
+  /* Tope: lo que la familia asignó en el panel */
   var pasesAsignados = (isNaN(rawP) || rawP < 1 || rawP > 20) ? 1 : rawP;
+  /* Lo que el invitado va a ocupar: arranca en 1 y nunca pasa del tope */
+  var pasesAUsar = 1;
 
-  var rsvpChoice = null, savedNames = [];
+  var rsvpChoice = null, savedNames = [], bloqueado = false;
+  var contWrap  = document.getElementById('rsvp-contador-wrap');
+  var contBox   = document.getElementById('rsvp-contador');
+  var contNota  = document.getElementById('rsvp-contador-nota');
+  var contValor = document.getElementById('rsvp-contador-valor');
+  var contPie   = document.getElementById('rsvp-contador-pie');
+  var btnMenos  = document.getElementById('rsvp-menos');
+  var btnMas    = document.getElementById('rsvp-mas');
   var noteEl   = document.getElementById('rsvp-pases-note');
   var dispEl   = document.getElementById('rsvp-pases-display');
   var numEl    = document.getElementById('rsvp-pases-num');
@@ -2088,34 +2122,64 @@ function initMain(){
   paintHeader();
 
   function renderFields(n){
+    Array.prototype.forEach.call(fieldsEl.querySelectorAll('.rsvp-input'), function(inp, i){ savedNames[i] = inp.value; });
     fieldsEl.innerHTML = '';
     for(var i=0;i<n;i++){
       var inp = document.createElement('input');
       inp.type='text'; inp.className='rsvp-input';
       inp.placeholder = n===1 ? 'Tu nombre completo' : 'Nombre del invitado ' + (i+1);
       inp.autocomplete='off'; inp.maxLength=60; inp.disabled=frozen;
-      inp.value = savedNames[i] || (i===0 ? urlPara : '');
-      (function(idx){ inp.addEventListener('input', function(){ savedNames[idx]=this.value; }); })(i);
+      /* Sin prellenar con el nombre de la invitación: "Familia X" no es el nombre de una persona */
+      inp.value = savedNames[i] || '';
+      (function(idx){ inp.addEventListener('input', function(){ savedNames[idx]=this.value; this.classList.remove('rsvp-input-falta'); }); })(i);
       fieldsEl.appendChild(inp);
     }
   }
+
+  function pintaContador(){
+    var cerrado = frozen || bloqueado;
+    contValor.textContent = pasesAUsar;
+    btnMenos.disabled = cerrado || pasesAUsar <= 1;
+    btnMas.disabled   = cerrado || pasesAUsar >= pasesAsignados;
+    contNota.textContent = pasesAsignados === 1
+      ? 'Tienes 1 pase reservado para ti.'
+      : 'Tienes ' + pasesAsignados + ' pases reservados. Aumenta el n\u00FAmero de pases que vayas a ocupar.';
+    var multi = pasesAsignados > 1;
+    contBox.style.display = multi ? 'flex' : 'none';
+    contPie.style.display = multi ? 'block' : 'none';
+    contPie.textContent = pasesAUsar >= pasesAsignados
+      ? 'Est\u00E1s usando todos tus pases'
+      : pasesAUsar + ' de ' + pasesAsignados + ' pases';
+  }
+  function setPases(n){
+    n = Math.max(1, Math.min(pasesAsignados, n));
+    if(n === pasesAUsar) return;
+    pasesAUsar = n;
+    pintaContador();
+    renderFields(pasesAUsar);
+    setFeedback('');
+  }
+  btnMenos.addEventListener('click', function(){ if(!frozen && !bloqueado) setPases(pasesAUsar - 1); });
+  btnMas.addEventListener('click',   function(){ if(!frozen && !bloqueado) setPases(pasesAUsar + 1); });
 
   function selectRsvp(choice){
     rsvpChoice = choice;
     if(choice==='yes'){
       btnYes.className='rsvp-toggle-btn rsvp-toggle-selected-yes';
       btnNo.className ='rsvp-toggle-btn';
-      renderFields(pasesAsignados);
+      contWrap.style.display='block';
+      pintaContador();
+      renderFields(pasesAUsar);
       fieldsEl.style.display='flex';
     } else {
       btnYes.className='rsvp-toggle-btn';
       btnNo.className ='rsvp-toggle-btn rsvp-toggle-selected-no';
+      contWrap.style.display='none';
       fieldsEl.style.display='none';
-      fieldsEl.innerHTML='';
     }
   }
-  btnYes.addEventListener('click', function(){ if(!frozen){ selectRsvp('yes'); setFeedback(''); } });
-  btnNo.addEventListener('click',  function(){ if(!frozen){ selectRsvp('no');  setFeedback(''); } });
+  btnYes.addEventListener('click', function(){ if(!frozen && !bloqueado){ selectRsvp('yes'); setFeedback(''); } });
+  btnNo.addEventListener('click',  function(){ if(!frozen && !bloqueado){ selectRsvp('no');  setFeedback(''); } });
 
   function mostrarGracias(estado, nombres){
     if(estado==='confirmado'){
@@ -2130,10 +2194,11 @@ function initMain(){
     bandejaEl.style.display='none';
     graciasEl.style.display='';
     editarBtn.disabled = frozen;
+    editarBtn.style.display = bloqueado ? 'none' : '';
     setFeedback('');
   }
   editarBtn.addEventListener('click', function(){
-    if(frozen) return;
+    if(frozen || bloqueado) return;
     graciasEl.style.display='none';
     bandejaEl.style.display='';
     setFeedback('');
@@ -2157,10 +2222,14 @@ function initMain(){
         if(d && typeof d.pases==='number' && d.pases>0 && d.pases<=20){ pasesAsignados = d.pases; }
         if(d && d.nombres_invitados && d.nombres_invitados.length){ nombresPanel = d.nombres_invitados.slice(); }
         else if(d && d.acompanantes && d.acompanantes.length){ nombresPanel = d.acompanantes.slice(); }
+        if(pasesAUsar > pasesAsignados) pasesAUsar = pasesAsignados;
+        if(d && d.bloqueado) bloqueado = true;
         paintHeader();
-        if(!frozen){ btnYes.disabled=false; btnNo.disabled=false; }
+        if(!frozen && !bloqueado){ btnYes.disabled=false; btnNo.disabled=false; }
         if(d && (d.estado==='confirmado' || d.estado==='declino')){
           if(d.nombres_confirmados && d.nombres_confirmados.length){ savedNames = d.nombres_confirmados.slice(); }
+          /* El contador arranca en cuántos pases había ocupado antes */
+          pasesAUsar = Math.min(pasesAsignados, Math.max(1, savedNames.length));
           selectRsvp(d.estado==='confirmado' ? 'yes' : 'no');
           btnText.textContent='Actualizar respuesta';
           mostrarGracias(d.estado, d.nombres_confirmados || []);
@@ -2184,13 +2253,26 @@ function initMain(){
   }
 
   btnConf.addEventListener('click', function(){
-    if(frozen || !urlPara) return;
+    if(frozen || bloqueado || !urlPara) return;
     if(!rsvpChoice){ setFeedback('Por favor selecciona si asistirás o no.','#FF9B9B'); return; }
     var nombres = [];
     if(rsvpChoice==='yes'){
       var inputs = fieldsEl.querySelectorAll('.rsvp-input');
       for(var i=0;i<inputs.length;i++){ var v=inputs[i].value.trim(); if(v) nombres.push(v); }
       if(nombres.length===0){ setFeedback('Por favor escribe al menos un nombre.','#FF9B9B'); return; }
+      if(nombres.length < pasesAUsar){
+        var faltan = pasesAUsar - nombres.length, primero = null;
+        /* Se marcan los campos vacíos para que se note cuál falta */
+        for(var k=0;k<inputs.length;k++){
+          var vacio = !inputs[k].value.trim();
+          inputs[k].classList.toggle('rsvp-input-falta', vacio);
+          if(vacio && !primero) primero = inputs[k];
+        }
+        setFeedback('Elegiste ' + pasesAUsar + ' pases pero escribiste ' + nombres.length + ' nombre' + (nombres.length===1?'':'s') + '. Escribe ' + (faltan===1 ? 'el nombre que falta' : 'los ' + faltan + ' nombres que faltan') + ' o baja el contador a los pases que vas a utilizar.', '#FF9B9B');
+        if(feedEl) feedEl.scrollIntoView({ block:'nearest', behavior:'smooth' });
+        if(primero) primero.focus({ preventScroll:true });
+        return;
+      }
     }
     var estadoFinal = rsvpChoice==='yes' ? 'confirmado' : 'declino';
     btnText.textContent='Enviando…';
@@ -2217,6 +2299,11 @@ function initMain(){
       }
       btnText.textContent='Confirmar asistencia';
       var err = res.d && res.d.error;
+      if(err==='respuestas_cerradas'){
+        bloqueado = true; btnConf.disabled = true; btnYes.disabled = true; btnNo.disabled = true;
+        setFeedback('Tu respuesta ya qued\u00F3 registrada y no se puede modificar. Si necesitas un cambio, contacta a la familia.', '#FF9B9B');
+        return;
+      }
       setFeedback(
         err==='no_match'
           ? 'No pudimos identificar tu invitación. Abre el enlace personalizado que te enviaron; ese es el único que registra tu confirmación.'
