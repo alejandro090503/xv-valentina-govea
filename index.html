@@ -252,66 +252,66 @@ body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',ser
   .clock-swing,.clock-hand-h,.clock-hand-m,.clock-hand-s,.clock-halo{animation:none!important}
 }
 
-/* ── GALERÍA · NAIPES EN ABANICO (Alicia) ── */
+/* ── GALERÍA · MAZO DE NAIPES (Alicia) ── */
 #galeria{padding:72px 0 84px;text-align:center;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%)}
 #galeria > .eyebrow,#galeria > .heading-sm,#galeria > .orn,#galeria > .gal-quote,#galeria > .gal-hint{padding-left:28px;padding-right:28px}
-.fan-stage{position:relative;width:100%;height:440px;margin:30px auto 0;touch-action:manipulation}
 
-.fan-card{
-  position:absolute;left:50%;bottom:20px;width:min(46vw,172px);aspect-ratio:5/7.2;
-  margin-left:calc(min(46vw,172px) / -2);
-  cursor:pointer;perspective:900px;
-  transform-origin:50% 132%;
-  transition:transform .65s cubic-bezier(.2,.75,.25,1),filter .45s;
-  will-change:transform;-webkit-tap-highlight-color:transparent;
-}
-.fan-inner{position:absolute;inset:0;transform-style:preserve-3d;
+.deck{position:relative;width:min(70vw,250px);aspect-ratio:5/7.2;margin:30px auto 0;
+  touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.deck-card{position:absolute;inset:0;perspective:1100px;cursor:pointer;
+  transition:transform .55s cubic-bezier(.2,.75,.25,1),opacity .45s ease}
+.deck-inner{position:absolute;inset:0;transform-style:preserve-3d;
   transition:transform .78s cubic-bezier(.3,.02,.2,1)}
-.fan-card.is-front .fan-inner{transform:rotateY(180deg)}
-.fan-side{position:absolute;inset:0;border-radius:11px;overflow:hidden;
+.deck-card.is-face .deck-inner{transform:rotateY(180deg)}
+.deck-side{position:absolute;inset:0;border-radius:13px;overflow:hidden;
   backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  box-shadow:0 16px 40px rgba(0,0,0,.62),0 0 0 1px rgba(217,178,76,.55)}
-.fan-card.is-front .fan-side{box-shadow:0 26px 60px rgba(0,0,0,.72),0 0 0 1px rgba(240,220,160,.95),0 0 34px rgba(217,178,76,.32)}
-.fan-card:not(.is-front){filter:brightness(.86)}
+  box-shadow:0 18px 44px rgba(0,0,0,.66),0 0 0 1px rgba(217,178,76,.55)}
+.deck-card.is-top .deck-side{box-shadow:0 26px 60px rgba(0,0,0,.74),0 0 0 1px rgba(240,220,160,.9),0 0 34px rgba(217,178,76,.3)}
 
-/* ── DORSO: rejilla de rombos, como una baraja ── */
-.fan-back{
+/* dorso de baraja */
+.deck-back{
   background:
     repeating-linear-gradient(45deg,rgba(240,220,160,.16) 0 2px,transparent 2px 11px),
     repeating-linear-gradient(-45deg,rgba(240,220,160,.16) 0 2px,transparent 2px 11px),
     linear-gradient(158deg,#8E2148 0%,#791A3D 44%,#4A0F26 100%);
-  border:7px solid #FDF8EC;
-}
-.fan-back::before{content:'';position:absolute;inset:3px;border:1px solid rgba(240,220,160,.55);border-radius:3px}
-.fan-back-mono{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:52%;max-width:74px;opacity:.95;pointer-events:none}
+  border:8px solid #FDF8EC}
+.deck-back::before{content:'';position:absolute;inset:3px;border:1px solid rgba(240,220,160,.55);border-radius:3px}
+.deck-back-mono{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:50%;max-width:86px;opacity:.95;pointer-events:none}
 
-/* ── CARA: papel de naipe con la foto ── */
-.fan-face{
-  transform:rotateY(180deg);
+/* cara con la foto */
+.deck-face{transform:rotateY(180deg);
   background:linear-gradient(158deg,#FDF8EC 0%,#F6EFE0 42%,#EADFC6 100%);
-  padding:9px 7px;color:#791A3D;
-}
-.fan-card.is-negra .fan-face{color:#081227}
-.fan-face::before{content:'';position:absolute;inset:4px;border-radius:8px;pointer-events:none;z-index:3;
+  padding:10px 8px;color:#791A3D}
+.deck-card.is-negra .deck-face{color:#081227}
+.deck-face::before{content:'';position:absolute;inset:5px;border-radius:9px;pointer-events:none;z-index:3;
   border:1px solid currentColor;opacity:.42}
-.fan-photo{position:relative;width:100%;height:100%;border-radius:5px;overflow:hidden;
+.deck-photo{position:relative;width:100%;height:100%;border-radius:6px;overflow:hidden;
   border:1px solid rgba(8,18,39,.28);background:#070E1C}
-.fan-photo img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;pointer-events:none;-webkit-user-drag:none}
-.fan-photo::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to top,rgba(5,10,24,.42) 0%,transparent 34%)}
-.fan-corner{position:absolute;top:6px;left:6px;z-index:4;display:flex;flex-direction:column;
+.deck-photo img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block;pointer-events:none;-webkit-user-drag:none}
+.deck-photo::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(5,10,24,.4) 0%,transparent 32%)}
+.deck-corner{position:absolute;top:7px;left:7px;z-index:4;display:flex;flex-direction:column;
   align-items:center;line-height:1;pointer-events:none;color:inherit}
-.fan-corner.br{top:auto;left:auto;bottom:6px;right:6px;transform:rotate(180deg)}
-.fan-corner::before{content:'';position:absolute;left:-5px;right:-5px;top:-5px;bottom:-4px;z-index:-1;
+.deck-corner.br{top:auto;left:auto;bottom:7px;right:7px;transform:rotate(180deg)}
+.deck-corner::before{content:'';position:absolute;left:-6px;right:-6px;top:-5px;bottom:-4px;z-index:-1;
   background:radial-gradient(ellipse at center,rgba(253,248,236,.97) 42%,rgba(253,248,236,0) 78%)}
-.fan-rank{font-family:Georgia,'Times New Roman',serif;font-size:17px;font-weight:700;letter-spacing:-.5px;
+.deck-rank{font-family:Georgia,'Times New Roman',serif;font-size:18px;font-weight:700;letter-spacing:-.5px;
   text-shadow:0 1px 0 rgba(255,255,255,.85)}
-.fan-suit{width:12px;height:12px;margin-top:1px;display:block;fill:currentColor}
+.deck-suit{width:13px;height:13px;margin-top:2px;display:block;fill:currentColor}
 
-.fan-hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:15px;letter-spacing:2px;color:var(--gold-light);margin-top:6px;opacity:.9}
-@media(max-width:360px){.fan-rank{font-size:15px}.fan-suit{width:10px;height:10px}}
-@media(prefers-reduced-motion:reduce){.fan-card,.fan-inner{transition:none}}
+/* controles */
+.deck-nav{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:22px}
+.deck-arrow{width:42px;height:42px;border-radius:50%;border:1px solid rgba(217,178,76,.5);
+  background:rgba(217,178,76,.07);color:var(--gold-light);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;padding:0;-webkit-appearance:none;appearance:none;touch-action:manipulation;
+  transition:background .3s,color .3s,transform .3s}
+.deck-arrow:hover{background:var(--gold);color:#081227;transform:scale(1.08)}
+.deck-arrow svg{width:16px;height:16px}
+.deck-count{font-family:'Italiana',serif;font-size:14px;letter-spacing:.2em;color:var(--gold-light);
+  min-width:74px;font-variant-numeric:tabular-nums}
+.deck-count b{color:var(--gold);font-weight:400;font-size:19px}
+@media(max-width:360px){.deck-rank{font-size:16px}.deck-suit{width:11px;height:11px}}
+@media(prefers-reduced-motion:reduce){.deck-card,.deck-inner{transition:none}}
 .gal-hint{padding-left:28px;padding-right:28px}
 .gal-hint{padding-left:28px;padding-right:28px}
 .gal-hint{padding-left:28px;padding-right:28px}
@@ -925,8 +925,11 @@ body.gift-locked{overflow:hidden;overscroll-behavior:none}
     <h2 class="heading-sm stagger-child">Itinerario</h2>
     <div class="orn stagger-child" style="margin-top:16px"><div class="orn-line"></div><div class="orn-diamond-sm"></div><div class="orn-diamond"></div><div class="orn-diamond-sm"></div><div class="orn-line"></div></div>
     <div class="itin-list">
-      <div class="itin-item rv"><div class="itin-dot"></div><div class="itin-time">6:00 p.m.</div><div class="itin-ev">Recepción</div></div>
-      <div class="itin-item rv"><div class="itin-dot sage"></div><div class="itin-time" style="font-family:'Italiana',serif;font-size:clamp(15px,4.4vw,19px);letter-spacing:.24em;text-transform:uppercase">Por confirmar</div><div class="itin-ev">El resto del programa se anunciará pronto</div></div>
+      <div class="itin-item rv"><div class="itin-dot"></div><div class="itin-time">6:00 p.m.</div><div class="itin-ev">Recepci&oacute;n</div></div>
+      <div class="itin-item rv"><div class="itin-dot sage"></div><div class="itin-time">6:30 p.m.</div><div class="itin-ev">Cena</div></div>
+      <div class="itin-item rv"><div class="itin-dot"></div><div class="itin-time">7:00 p.m.</div><div class="itin-ev">Vals</div></div>
+      <div class="itin-item rv"><div class="itin-dot sage"></div><div class="itin-time">9:00 p.m.</div><div class="itin-ev">Baile</div></div>
+      <div class="itin-item rv"><div class="itin-dot"></div><div class="itin-time">11:00 p.m.</div><div class="itin-ev">Despedida</div></div>
     </div>
   </section>
 
@@ -971,49 +974,214 @@ body.gift-locked{overflow:hidden;overscroll-behavior:none}
     <h2 class="heading-sm">Galería</h2>
     <div class="orn" style="margin-top:16px"><div class="orn-line"></div><div class="orn-diamond-sm"></div><div class="orn-diamond"></div><div class="orn-diamond-sm"></div><div class="orn-line"></div></div>
     <p class="gal-quote rv">Cada foto, un instante de este sueño hecho realidad.</p>
-    <div class="fan-stage rv" id="fanStage">
-      <div class="fan-card">
-        <div class="fan-inner">
-          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
-          <div class="fan-side fan-face">
-            <span class="fan-corner"><span class="fan-rank">A</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
-            <div class="fan-photo"><img src="foto1.jpg" alt="Valentina Govea" loading="lazy"></div>
-            <span class="fan-corner br"><span class="fan-rank">A</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+    <div class="deck rv" id="deck">
+        <div class="deck-card" data-i="0">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">A</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g01.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">A</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="fan-card is-negra">
-        <div class="fan-inner">
-          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
-          <div class="fan-side fan-face">
-            <span class="fan-corner"><span class="fan-rank">Q</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
-            <div class="fan-photo"><img src="foto2.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
-            <span class="fan-corner br"><span class="fan-rank">Q</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+        <div class="deck-card is-negra" data-i="1">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">2</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g02.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">2</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="fan-card">
-        <div class="fan-inner">
-          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
-          <div class="fan-side fan-face">
-            <span class="fan-corner"><span class="fan-rank">K</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
-            <div class="fan-photo"><img src="foto3.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
-            <span class="fan-corner br"><span class="fan-rank">K</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+        <div class="deck-card" data-i="2">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">3</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g03.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">3</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="fan-card is-negra">
-        <div class="fan-inner">
-          <div class="fan-side fan-back"><svg class="fan-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
-          <div class="fan-side fan-face">
-            <span class="fan-corner"><span class="fan-rank">J</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
-            <div class="fan-photo"><img src="foto4.jpg" alt="Valentina Govea de niña" loading="lazy"></div>
-            <span class="fan-corner br"><span class="fan-rank">J</span><svg class="fan-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+        <div class="deck-card is-negra" data-i="3">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">4</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g04.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">4</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
           </div>
         </div>
-      </div>
+        <div class="deck-card" data-i="4">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">5</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g05.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">5</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="5">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">6</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g06.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">6</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="6">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">7</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g07.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">7</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="7">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">8</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g08.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">8</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="8">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">9</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g09.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">9</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="9">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">10</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g10.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">10</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="10">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">J</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g11.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">J</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="11">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">Q</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g12.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">Q</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="12">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">K</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g13.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">K</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="13">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">A</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g14.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">A</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="14">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">2</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g15.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">2</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="15">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">3</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g16.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">3</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="16">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">4</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g17.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">4</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="17">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">5</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g18.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">5</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card" data-i="18">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">6</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g19.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">6</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.6C6.4 16.1 1 11.3 1 7.2 1 3.4 4.1 2 6.3 2c1.3 0 4.2.5 5.7 4.5C13.6 2.5 16.5 2 17.7 2 20.3 2 23 3.6 23 7.2c0 4.1-5.1 8.6-11 14.4z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-card is-negra" data-i="19">
+          <div class="deck-inner">
+            <div class="deck-side deck-back"><svg class="deck-back-mono" viewBox="0 0 74 74" fill="none" aria-hidden="true"><circle cx="37" cy="37" r="33" stroke="#F0DCA0" stroke-width="1.4" opacity=".85"/><circle cx="37" cy="37" r="27" stroke="#F0DCA0" stroke-width=".9" opacity=".5"/><path d="M37 52.5C29 45 22.4 39.2 22.4 33.6c0-4.4 3.6-6.2 6.4-6.2 1.8 0 5.4.7 8.2 5.9 2.7-5.2 6.4-5.9 8.2-5.9 3.3 0 6.4 2 6.4 6.2 0 5.6-6.6 11.4-14.6 18.9z" fill="#F0DCA0" opacity=".9"/><text x="37" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="700" fill="#791A3D">V</text></svg></div>
+            <div class="deck-side deck-face">
+              <span class="deck-corner"><span class="deck-rank">7</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+              <div class="deck-photo"><img data-src="g/g20.jpg" alt="Valentina Govea"></div>
+              <span class="deck-corner br"><span class="deck-rank">7</span><svg class="deck-suit" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6S2.4 9.7 2.4 15.3c0 3.1 2.4 4.8 4.6 4.4 1.1-.2 2-.8 2.6-1.6L8.2 22.4h7.6l-1.4-4.3c.6.8 1.5 1.4 2.6 1.6 2.2.4 4.6-1.3 4.6-4.4C21.6 9.7 12 1.6 12 1.6z"/></svg></span>
+            </div>
+          </div>
+        </div>
     </div>
-    <p class="gal-hint rv">Toca una carta para voltearla</p>
+    <div class="deck-nav rv">
+      <button class="deck-arrow" id="deckPrev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <span class="deck-count" id="deckCount"><b>1</b> / 20</span>
+      <button class="deck-arrow" id="deckNext" type="button" aria-label="Siguiente foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+    <p class="gal-hint rv">Toca la carta para voltearla &middot; desliza para la siguiente</p>
   </section>
 
   <!-- MESA DE REGALOS -->
@@ -1650,61 +1818,86 @@ function initMain(){
     setTimeout(()=>t.classList.remove('show'),2400);
   };
 
-  /* ── GALERÍA · NAIPES EN ABANICO ── */
-  (function initFan(){
-    var stage = document.getElementById('fanStage');
-    if(!stage) return;
-    var cards = Array.prototype.slice.call(stage.querySelectorAll('.fan-card'));
+  /* ── GALERÍA · MAZO DE NAIPES ── */
+  (function initDeck(){
+    var deck = document.getElementById('deck');
+    if(!deck) return;
+    var cards = Array.prototype.slice.call(deck.querySelectorAll('.deck-card'));
     var n = cards.length;
     if(!n) return;
-    var front = 0;
+    var top = 0;
+    var countEl = document.getElementById('deckCount');
+
+    function loadNear(){
+      /* loading="lazy" NO dispara dentro de una cara 3D: se cargan a mano */
+      for(var k=-2;k<=5;k++){
+        var idx=(top+k+n)%n;
+        var img=cards[idx].querySelector('img[data-src]');
+        if(img){ img.src=img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+      }
+    }
 
     function layout(){
-      var narrow = window.innerWidth < 400;
-      var spread = narrow ? 13 : 15;
-      var lift   = narrow ? 24 : 30;
-      var mid    = (n - 1) / 2;
+      loadNear();
       cards.forEach(function(card, i){
-        var ang = (i - mid) * spread;
-        var isFront = (i === front);
-        var y  = isFront ? -lift : Math.abs(i - mid) * 5;
-        var sc = isFront ? 1 : 0.93;
-        card.style.zIndex = String(isFront ? 120 : 100 - Math.abs(i - front));
-        card.style.transform = 'translateY(' + y + 'px) rotate(' + ang + 'deg) scale(' + sc + ')';
-        card.classList.toggle('is-front', isFront);
+        var rel = (i - top + n) % n;          /* 0 = al frente */
+        var isTop = (rel === 0);
+        card.classList.toggle('is-top', isTop);
+        if(rel > 3){                           /* las lejanas se esconden */
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+          card.style.transform = 'translate3d(0,0,0) scale(.86)';
+          card.style.zIndex = '1';
+        } else {
+          card.style.opacity = '1';
+          card.style.pointerEvents = isTop ? 'auto' : 'none';
+          card.style.transform = 'translate3d(' + (rel * 7) + 'px,' + (rel * 9) + 'px,0) rotate(' + (rel * 2.2) + 'deg) scale(' + (1 - rel * 0.035) + ')';
+          card.style.zIndex = String(50 - rel);
+        }
+        if(!isTop) card.classList.remove('is-face');   /* vuelve a su dorso */
       });
+      if(countEl) countEl.innerHTML = '<b>' + (top + 1) + '</b> / ' + n;
     }
-    cards.forEach(function(card, i){
-      card.setAttribute('role','button');
-      card.setAttribute('tabindex','0');
-      card.setAttribute('aria-label','Ver la foto ' + (i+1) + ' de ' + n);
-      function pick(){ front = i; layout(); }
-      card.addEventListener('click', pick);
-      card.addEventListener('keydown', function(e){
-        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(); }
-      });
-    });
-    window.addEventListener('resize', layout);
-    layout();
 
-    /* Reparto: nacen apiladas e invisibles y se abren en abanico. El transform
-       lo maneja SOLO layout() (con la transición CSS), así GSAP nunca lo pisa. */
-    var dealt = false;
-    function deal(){
-      if(dealt) return; dealt = true;
-      cards.forEach(function(card, i){
-        setTimeout(function(){ card.style.opacity = '1'; }, i * 130);
+    function go(d){ top = (top + d + n) % n; layout(); }
+
+    cards.forEach(function(card){
+      card.addEventListener('click', function(){
+        if(!card.classList.contains('is-top')) return;
+        card.classList.toggle('is-face');
       });
-      setTimeout(layout, 90);
-    }
-    cards.forEach(function(card, i){
-      card.style.opacity = '0';
-      card.style.transition = 'transform .65s cubic-bezier(.2,.75,.25,1),opacity .5s ease,box-shadow .45s,filter .45s';
-      card.style.zIndex = String(100 - i);
-      card.style.transform = 'translateY(' + (i*3) + 'px) rotate(0deg) scale(.9)';
     });
-    ScrollTrigger.create({trigger:stage,start:'top 85%',once:true,onEnter:deal,onEnterBack:deal});
-    setTimeout(deal, 3500);
+
+    var prev = document.getElementById('deckPrev');
+    var next = document.getElementById('deckNext');
+    if(prev) prev.addEventListener('click', function(){ go(-1); });
+    if(next) next.addEventListener('click', function(){ go(1); });
+
+    /* deslizar de lado para pasar de carta */
+    var x0 = null, y0 = null;
+    deck.addEventListener('touchstart', function(e){
+      x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+    }, {passive:true});
+    deck.addEventListener('touchend', function(e){
+      if(x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      var dy = e.changedTouches[0].clientY - y0;
+      if(Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy)){ go(dx < 0 ? 1 : -1); }
+      x0 = null; y0 = null;
+    }, {passive:true});
+
+    /* primera carta: se voltea sola para que se entienda el gesto */
+    var teased = false;
+    function tease(){
+      if(teased) return; teased = true;
+      setTimeout(function(){
+        cards[0].classList.add('is-face');
+      }, 600);
+    }
+    ScrollTrigger.create({trigger:deck,start:'top 82%',once:true,onEnter:tease});
+    setTimeout(tease, 3800);
+
+    layout();
   })();
 
 /* ── MESA DE REGALOS · caja + confetti + carrusel (boda-paola-e-ivan) ── */
